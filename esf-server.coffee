@@ -90,6 +90,10 @@ class ESFServer
 			do next
 
 
+		########################################################
+		# TRAINING FUNCTIONS                                   #
+		########################################################
+
 		# GET /formacion
 		#
 		# Retrieves the list of all events (only name, date and place)
@@ -126,12 +130,12 @@ class ESFServer
 
 		# POST /formacion
 		#
-		# Saves a new event 
+		# Saves a new event
 		#
 		# @param name [String]
  		# @param date [String]
 		# @param place [String]
-		# @param lecturer [String] 
+		# @param lecturer [String]
 		# 
 		# @return 200 OK
 		#
@@ -177,8 +181,16 @@ class ESFServer
 			data.name = req.body.name
 			collection = @db.collection('prueba5')
 			collection.update {_id: ObjectID id},  {"$set": data}, true, false
-
 			res.status(200).send "adios!"
+
+
+		app.delete "/formacion", (req, res) =>
+			console.warn "DELETE /volunteer"
+			collection = @db.collection('prueba5')
+			ids  = req.body.ids
+			for id in ids
+				collection.remove { _id: ObjectID id }
+			res.status(200).send ""
 
 
 		app.post "/formacion/:id/members", (req, res) =>
@@ -198,6 +210,83 @@ class ESFServer
 				collection.update { _id: ObjectID id},  {"$pull": {members:  contactid } }, true, false
 			res.status(200).send "Ready!"
 
+		# TODO: formaciones hechas por un voluntario
+
+		########################################################
+		# VOLUNTEERS FUNCTIONS                                 #
+		########################################################
+		# list -> criteria
+		# update
+
+		# POST /volunteer/:id
+		#
+		# Saves a new volunteer
+		#
+		# @param name [String]
+ 		# @param date [String]
+		# @param venue [String]
+		# 
+		# @return 200 OK
+		app.post "/volunteer", (req, res) =>
+			console.warn "POST /volunteer"
+			collection = @db.collection('volunteer')
+			currentyear = new Date().getFullYear()
+			data = {}
+			data.name = req.body.name
+			data.date = req.body.date
+			data.venue = req.body.venue
+			data.agreement = {}
+			data.agreement[currentyear] = false
+
+			collection.insert data, (err, docs) =>
+				if err
+					console.warn "Error inserting document"
+				else
+					console.warn "Inserted document #{docs[0]._id}"
+
+			res.status(200).send "OK!"
+
+
+		# PUT /volunteer/:id
+		#
+		# Updates a new volunteer
+		#
+		# @param name [String]
+ 		# @param date [String]
+		# @param venue [String]
+		# 
+		# @return 200 OK
+		app.put "/volunteer/:id", (req, res) =>
+			id  = req.params.id
+			console.warn "PUT /volunteer/#{id}"
+			data = {}
+			data.name = req.body.name
+			data.date = req.body.date
+			data.venue = req.body.venue
+			console.warn data
+			collection = @db.collection('volunteer')
+			collection.update {_id: ObjectID id},  {"$set": data}, true, false
+
+			res.status(200).send "adios!"
+
+
+		# DELETE /volunteer/:id
+		#
+		# Remove the given volunteers in the param 'ids'
+		#
+		# @params ids [Array] Volunters to remove
+		# 
+		# @return 200 OK
+		#
+		app.delete "/volunteer", (req, res) =>
+			# o simplemente marcarlo como dado de baja
+			console.warn "DELETE /volunteer"
+			collection = @db.collection('volunteer')
+			ids  = req.body.ids
+			for id in ids
+				collection.remove { _id: ObjectID id }
+			res.status(200).send ""
+
 		http.createServer(app).listen @options.port
 
 		if @options.ports > 0
@@ -207,3 +296,7 @@ class ESFServer
 			https.createServer(httpsOptions, app).listen @options.ports
 
 module.exports = ESFServer
+
+# TODO: almacenar cambios: cambios de sede,
+# gestión de compromisos -> como añadir un nuevo año?
+# listas de correo en las que está la persona voluntaria
