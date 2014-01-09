@@ -1,0 +1,6 @@
+div
+	span #{venue}
+	each value, i in volunteers
+		div(class="row")
+			div(class="col-md-1 statemarker #{value.state}") as
+			div(class="col-md-11") #{value.name}

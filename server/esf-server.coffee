@@ -300,3 +300,5 @@ module.exports = ESFServer
 # TODO: almacenar cambios: cambios de sede,
 # gestión de compromisos -> como añadir un nuevo año?
 # listas de correo en las que está la persona voluntaria
+# añadir etiquetas a las formaciones
+# añadir cargos a los voluntarios

@@ -1,0 +1,450 @@
+color1 = #777
+color2 = #BB7
+color3 = #7BB
+color4 = #B7B
+color5 = #EEE
+acme0 = #EEE
+acme1 = #2E8297
+acme2 = #EEE
+maincolor = #16B2AA
+
+controlClose = #FF0000
+controlNotStarted = #00FF00
+controlOngoing = #0000FF
+
+anubered = #e41f25
+
+.st0-active
+	background-color: green
+
+.st1-welcome
+	background-color: orange
+
+.st2-discarded
+	background-color: red
+
+.st3-old
+	background-color: #444
+
+
+
+
+
+.statemarker
+	border: 2px solid 
+
+
+#esf-menu
+	background-color: #AAA
+
+#esf-main
+	background-color: #777
+
+
+#esf-listview
+	background-color: #eee
+
+
+
+
+
+
+
+
+
+
+
+
+#anubeoverview
+	position: absolute
+	bottom:1%
+	right:2%
+	width: 15%
+	height: 25%
+	opacity: 0.8
+	z-index: 1000
+
+#maps
+	width: 60%
+
+.anubemap
+	width: 100%
+	height: 100%
+
+
+.box
+	display: flex
+	flex-flow: row nowrap
+	justify-content: center
+	align-content: center
+	align-items: center
+
+
+#panelcontainer
+	position: fixed
+	top: 100px
+	right:0px
+	display: flex
+	flex-flow: row nowrap
+	justify-content: flex-end
+	align-content: center
+	z-index: 1234
+
+	
+#stages
+	@extends .box
+	top: 100px
+
+#stagescontainer
+	position: absolute
+	width: 100%
+	top: 90%
+	z-index:1000
+
+
+.stage
+	order: 1
+	flex: 1 1 auto
+	align-self: auto
+	min-width: 0
+	min-height: auto
+	text-align: center
+	padding-bottom:10px
+	background-color: #ccc
+	border-radius: 3px
+	margin-left: 0.3%
+	margin-right: 0.3%
+	cursor: pointer		
+
+.stageindicator
+	background-color: controlNotStarted
+	border-radius: 3px
+	min-heigh: 3px
+	max-height: 5px
+	margin-left: 10%
+	margin-right: 10%
+
+p
+	display:block
+
+
+#logo
+	position: absolute
+	right:20px
+	z-index: 2000
+
+.marquee
+	left: 40px
+	width: 500px
+	height: 40px  
+	margin: 15px auto
+	overflow: hidden  
+	position: absolute
+	border: 1px solid #000
+	background-color: #222
+	-webkit-border-radius: 5px
+	border-radius: 5px
+	-webkit-box-shadow: inset 0px 2px 2px rgba(0, 0, 0, .5), 0px 1px 0px rgba(250, 250, 250, .2)
+	box-shadow: inset 0px 2px 2px rgba(0, 0, 0, .5), 0px 1px 0px rgba(250, 250, 250, .2)
+	-webkit-transition: background-color 350ms;
+	-moz-transition: background-color 350ms;
+	transition: background-color 350ms;
+	z-index: 1000
+	opacity: 0.8
+
+
+
+.marquee 
+	p
+		-webkit-transform:translateX(100%)
+		-moz-transform:translateX(100%)
+		transform:translateX(100%)
+		position: absolute;  
+		font-family: Tahoma, Arial, sans-serif;  
+		width: 100%;  
+		height: 100%;  
+		margin: 0;  
+		line-height: 50px;  
+		text-align: center;  
+		color: #fff;  
+		text-shadow: 1px 1px 0px #000000;  
+		filter: dropshadow(color=#000000, offx=1, offy=1);  
+
+
+@-webkit-keyframes left-one
+	0%
+		-webkit-transform:translateX(100%);
+	10%
+		-webkit-transform:translateX(0);
+	40%
+		-webkit-transform:translateX(0);
+	50%
+		-webkit-transform:translateX(-100%);
+	100%
+		-webkit-transform:translateX(-100%);
+
+@-webkit-keyframes left-two
+	0%
+		-webkit-transform:translateX(100%);  
+	50%
+		-webkit-transform:translateX(100%);  
+	60%
+		-webkit-transform:translateX(0);
+	90%
+		-webkit-transform:translateX(0);          
+	100%
+		-webkit-transform:translateX(-100%);  
+
+@-moz-keyframes left-one
+	0%
+		-moz-transform:translateX(100%);
+	10%
+		-moz-transform:translateX(0);
+	40%
+		-moz-transform:translateX(0);
+	50%
+		-moz-transform:translateX(-100%);
+	100%
+		-moz-transform:translateX(-100%);
+
+@-moz-keyframes left-two
+	0%
+		-moz-transform:translateX(100%);  
+	50%
+		-moz-transform:translateX(100%);  
+	60%
+		-moz-transform:translateX(0);
+	90%
+		-moz-transform:translateX(0);          
+	100%
+		-moz-transform:translateX(-100%);  
+
+
+.marquee 
+	p:nth-child(1)
+		animation: left-one 20s ease infinite;  
+		-webkit-animation: left-one 20s ease infinite;  
+		-moz-animation: left-one 20s ease infinite;  
+
+.marquee 
+	p:nth-child(2)
+		animation: left-two 20s ease infinite;  
+		-webkit-animation: left-two 20s ease infinite;  
+		-moz-animation: left-two 20s ease infinite;  
+
+
+.wrapper
+	width: 500px
+	margin: 25px auto
+
+.overlaybox
+	overflow-y:auto
+	border: 1px solid #000
+	background-color: #222
+	-webkit-border-radius: 5px
+	border-radius: 5px
+	-webkit-box-shadow: inset 0px 2px 2px rgba(0, 0, 0, .5), 0px 1px 0px rgba(250, 250, 250, .2)
+	box-shadow: inset 0px 2px 2px rgba(0, 0, 0, .5), 0px 1px 0px rgba(250, 250, 250, .2)
+	-webkit-transition: background-color 350ms;
+	-moz-transition: background-color 350ms;
+	transition: background-color 350ms;
+	z-index:1000
+	opacity:0.95
+
+
+.stagescoring
+	border-bottom: 1px solid
+	border-right: 1px solid
+	border-color: #fff
+	color:#fff
+
+#clock
+	font-size:20pt
+
+#infoparticipant
+	display:none
+	position: absolute
+	width: 300px
+	height: 300px  
+	left: 350px
+	top: 100px
+	color: white
+
+
+#infopanels
+	order: 0
+	flex: 0 1 auto
+	display: flex
+	flex-flow: row nowrap
+	justify-content: flex-end
+	top: 15%
+	z-index:1000
+
+
+// #scoringdata	
+//	overflow-y:auto
+
+
+#scoring
+	display:none
+	order: 1
+	flex: 0 1 auto
+	align-self: auto
+	width: 500px
+	height: 300px  
+	margin: 15px
+
+
+#notifications
+	display:none
+	order: 2
+	flex: 0 1 auto
+	align-self: auto
+	margin: 15px auto
+	width: 200px
+	height: 300px  
+	p
+		color: white
+	p.critical
+		color: red
+	p.warn
+		color: orange
+
+#classification
+	display:none
+	order: 3
+	flex: 0 1 auto
+	align-self: auto
+	width: 400px
+	height: 300px  
+	margin: 15px
+	color: white
+
+#tableclassification
+	th
+		background-color: anubered
+	td
+		border: 1px solid black;
+		color: #fff
+	width: 100%
+
+#twitter
+	display:none
+	order: 3
+	flex: 0 1 auto
+	align-self: auto
+	width: 200px
+	height: 300px  
+	margin: 15px
+	
+
+#container
+	display: flex
+	flex-flow: row nowrap
+
+
+#minpanelsinner
+	order: 1
+	flex: 0 1 auto
+	display: flex
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	flex-flow: column
+	justify-content: space-around
+	align-content: center
+	align-items: center
+	z-index:1000
+
+
+.minimizer
+	width: 80px
+	height: 80px
+	border: 1px solid black;	
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	margin: 2px
+	cursor: pointer
+
+#scoringminimize
+	order: 0
+	flex: 1 1 auto
+
+
+#notificationsminimize
+	order: 0
+	flex: 1 1 auto
+
+
+.anubedate
+		padding-right: 3px
+
+
+#tablescoring 
+	width: 100%
+	td
+		text-align: right
+		border: 1px solid black;
+		color: #fff
+		padding:1px
+	td.updated
+		background-color:#f00
+	.name
+		cursor: pointer
+
+#scoringtitle
+	@extends .box
+	color:#fff
+	text-align:center
+	background-color: anubered
+	.title
+		order: 2
+		flex: 2 1 auto
+		align-self: auto
+		
+	.leftarrow
+		order: 1
+		flex: 0 1 auto
+		align-self: auto
+		text-decoration: underline
+		padding-left: 2px
+		cursor: pointer
+	.rightarrow
+		order: 3
+		flex: 0 1 auto
+		align-self: auto
+		text-decoration: underline
+		padding-right: 2px
+		cursor: pointer
+	.close
+		order: 4
+		flex: 0 1 auto
+		align-self: auto
+
+/* Let's get this party started */
+::-webkit-scrollbar
+	width: 12px
+		
+ 
+/* Track */
+::-webkit-scrollbar-track
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+
+
+/* Handle */
+::-webkit-scrollbar-thumb
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	background: rgba(100,100,100,0.8); 
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+
+
+::-webkit-scrollbar-thumb:window-inactive
+	background: rgba(100,100,100,0.4); 
+
+.timeline-header
+	background-color: red
