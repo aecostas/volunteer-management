@@ -1,0 +1,20 @@
+.row
+	div(id="detailedphoto", class="col-md-6")
+		img(src="#{photo}")
+	div(class="col-md-6") 
+		// label name
+		div(id="detailedname", class="row") 
+			form(id="formdetailedname")
+				input(id="editdetailedname", value="#{name}", class="editfield col-md-10")
+			div(id="editdetailednameicon", class="col-md-1")
+				span(class="glyphicon glyphicon-edit")
+
+		div(class="row")
+			span(class="col-md-2") Sede
+			div(class="col-md-5")
+				span(id="detailedvenue")  #{venue}
+				form(id="formvenue")
+					select(id="selectvenue")
+						option uno
+						option dos
+						option tres
