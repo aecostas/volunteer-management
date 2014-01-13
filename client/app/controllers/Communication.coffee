@@ -17,5 +17,9 @@ class Communication extends Spine.Controller
 		
 		Spine.bind "edit", (field, value) =>
 			console.warn "[COMMUNICATION] Edit #{field}   #{value}"
+
+
+	# getVolunteers: () =>
+		
 		
 module.exports = Communication

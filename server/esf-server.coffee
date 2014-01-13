@@ -6,20 +6,8 @@
 # Dependencies
 require('coffee-script')
 
-#D               = require("promise.coffee").Deferred
 express         = require "express"
 util            = require "util"
-# path            = require "path"
-# fs              = require 'fs'
-# program         = require "commander"
-# u               = require 'underscore'
-# crypto          = require "crypto"
-# WebSocketServer = require("ws").Server
-
-# LDAP            = require "./ldap"
-# DB              = require "./db"
-
-# https           = require 'https'
 http            = require 'http'
 
 
@@ -28,12 +16,6 @@ Connection = require('mongodb').Connection;
 Server = require('mongodb').Server;
 BSON = require('mongodb').BSON;
 ObjectID = require('mongodb').ObjectID;
-
-
-# mongo = require('mongodb').MongoClient
-# monk = require 'monk'
-# db = monk 'localhost:27017/event'
-
 
 # ESFServer class
 #
@@ -52,30 +34,14 @@ class ESFServer
 	# The constructor
 	#
 	# @param  options   [Object] The command line options
-	# @option options   data        [String]  The path to the folder with .nosql files
-	# @option options   files       [String]  The path to the folder with shared files
-	# @option options   static      [String]  The path to the static content (the webphone)
-	# @option options   ldap        [String]  The path to the LDAP configuration file
-	# @option options   cert        [String]  The path to the SSL certificate
 	# @option options   port        [Number]  The HTTP port to listen on
 	# @option options   ports       [Number]  The HTTPS port to listen on
 	# @option options   wsport      [Number]  The WebSocketServer port to listen on
-	# @option options   authBackend [String]  The name of Auth backend to use
-	# @option optHns    authHooks   [Array]   The Auth Hooks for the auth process
-	# @option options   authEnabled [Boolean] True for enabling the authentication process
 	#
 	constructor: (options) ->
 		@options     = options
 		@filesStatus = []
 
-
-	getCollection: (name, callback) =>
-		@db.collection name, (error, collection) =>
-			if error
-				callback error
-			else
-				callback null, collection
-			
 
 	run: () =>
 		@db = new Db('event', new Server('localhost', 27017, {auto_reconnect: true}, {}));
@@ -218,6 +184,24 @@ class ESFServer
 		# list -> criteria
 		# update
 
+		app.get "/volunteer", (req, res) =>
+			console.warn "GET /volunteer"
+			collection = @db.collection 'volunteer'
+			collection.find({},{name:true, state:true, venue:true}).toArray (err, docs) =>
+				res.status(200).send docs
+
+
+		app.get "/volunteer/:id", (req, res) =>
+			console.warn "GET /volunteer/:id"
+			console.warn req.params.id
+			id=req.params.id
+			
+			collection = @db.collection 'volunteer'
+			collection.find({_id:ObjectID id}).toArray (err, docs) =>
+				console.warn docs
+				res.status(200).send docs
+
+		
 		# POST /volunteer/:id
 		#
 		# Saves a new volunteer
@@ -235,6 +219,7 @@ class ESFServer
 			data.name = req.body.name
 			data.date = req.body.date
 			data.venue = req.body.venue
+			data.state = req.body.state
 			data.agreement = {}
 			data.agreement[currentyear] = false
 
@@ -263,6 +248,7 @@ class ESFServer
 			data.name = req.body.name
 			data.date = req.body.date
 			data.venue = req.body.venue
+			data.state = req.body.state
 			console.warn data
 			collection = @db.collection('volunteer')
 			collection.update {_id: ObjectID id},  {"$set": data}, true, false
