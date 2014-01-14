@@ -47,28 +47,10 @@ ports.wsport = program.websocket
 paths        = {}
 paths.files  = path.resolve program.filespath or "./files/"
 paths.data   = path.resolve program.datapath  or "./data/"
-paths.static = path.resolve program.static    or "./public/"
+paths.static = path.resolve program.static    or "../client/public/"
 paths.cert   = path.resolve program.cert      or "./cert/"
 for k, v of paths
 	paths[k] = path.join v, "/"
-
-program.fileserver = program.fileserver or 'http://localhost:8888/'
-
-# Auth/Credentials
-authEnabled = false
-try
-	auth        = require(program.auth or "sippo-auth").SippoAuth
-	credentials = require(program.credentials or "sippo-cb")
-	authBackend = new auth JSON.parse program.authOptions or '{}'
-	credBackend = new credentials JSON.parse program.credentialsOptions or '{ "passwdfile" : "/dev/null"}'
-	authHook    = credBackend.getAuthHook()
-	authEnabled = true
-
-catch err
-	if program.auth? or program.credentials?
-		console.error err
-		console.error "Error loading backends"
-		process.exit()
 
 
 # Show used options.
@@ -90,8 +72,5 @@ esfServer = new ESFServer
 	port        : ports.http
 	ports       : ports.https
 	wsport      : ports.wsport
-	authBackend : authBackend
-	authHooks   : [authHook]
-	authEnabled : authEnabled
 
 esfServer.run()

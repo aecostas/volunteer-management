@@ -1,7 +1,6 @@
 program = require 'commander'
 request = require 'request'
 
-
 states = ['st0-active', 'st1-welcome', 'st2-discarded', 'st3-old']
 names = ['Andres', 'Jose', 'Maria', 'Concha', 'Nacho', 'Patri', 'Sergio', 'Pepe', 'Jorge', 'Asunción','Andrea','Camila','Cristina']
 surnames = ['Portabales', 'Pérez', 'Domínguez', 'Fernández', 'Costas', 'Revilla', 'Zolle', 'Vara']
@@ -11,7 +10,6 @@ sedes = ['Vigo','Coruña','Santiago','Lugo']
 days = [1..30]
 months = [1..12]
 years = [2000..2013]
-
 
 # http = require 'http'
 # querystring = require 'querystring'

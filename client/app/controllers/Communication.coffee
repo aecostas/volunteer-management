@@ -19,7 +19,19 @@ class Communication extends Spine.Controller
 			console.warn "[COMMUNICATION] Edit #{field}   #{value}"
 
 
-	# getVolunteers: () =>
+	getVolunteers: () =>
+		success = (data, textStatus, jqXHR) =>
+			console.warn data
+			Spine.trigger 'volunteers', data
+
+		error = (data) =>
+			console.warn data
 		
-		
+		$.ajax
+			type: 'GET'
+			contentType: 'application/json'
+			url: "http://localhost:7777/volunteer/"
+			success: success
+			error: error
+
 module.exports = Communication

@@ -1,6 +1,6 @@
 div
 	span #{venue}
 	each value, i in volunteers
-		div(id="#{value.id}", class="row row-volunteer")
+		div(id="#{value._id}", class="row row-volunteer")
 			div(class="col-md-1 statemarker #{value.state}") as
 			div(class="col-md-11") #{value.name}
