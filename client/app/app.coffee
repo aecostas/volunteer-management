@@ -21,16 +21,11 @@ class App extends Spine.Controller
 				volunteers: sortedVolunteers
 				el: "#esf-listview"
 
-
-
 		volunteerDetailedCtrl = new controllers.VolunteerDetailed
 			el: "#volunteer-detailed"
 #		volunteerDetailedCtrl.setVolunteer (volunteerDetailed)
 
 		communication = new controllers.Communication
 		communication.getVolunteers()
-			
-		@volunteersList.bind "selected-volunteer", (e) =>
-			console.warn "[app.coffee] Selected volunteer"
-		
+	
 module.exports = App

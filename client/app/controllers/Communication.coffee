@@ -2,21 +2,37 @@ class Communication extends Spine.Controller
 
 	constructor: ->
 		super
-		Spine.bind "selected-volunteer", (e) =>			
-			console.warn "[COMMUNICATION] Selected volunteer"
-			volunteerDetailed = {}
-			volunteerDetailed.photo = 'http://m.c.lnkd.licdn.com/media/p/5/005/02f/269/07af33c.jpg'
-			volunteerDetailed.name = "Tomás Bande Sánchez"
-			volunteerDetailed.venue = "Lugo"
-			volunteerDetailed.membership = "2008-05-05"
-			volunteerDetailed.leave = null
-			volunteerDetailed.state = 'st0-active'
-			volunteerDetailed.activities = [{type:'training', name:'Formación en Xenero', date:'2008/10/10'}, {type:'xuntanza', name:'Xuntanza Novembro', date:'2008/10/10'}, {type:'xuntanza', name:'Xuntanza Marzo', date:'2008/10/10'},]
-			volunteerDetailed.welcome = [{date:'2009/05/05', comment: "contacta via correo electronico"}, {date:'2009/05/06', comment: "Se reune con XXXX"}]
-			Spine.trigger 'volunteer-detailed', volunteerDetailed
+		Spine.bind "selected-volunteer", (id) =>
+			success = (data, textStatus, jqXHR) =>
+				console.warn data[0]
+				data[0].photo="http://m.c.lnkd.licdn.com/media/p/5/005/02f/269/07af33c.jpg" if not data[0].photo?  #fixme
+				Spine.trigger 'volunteer-detailed', data[0]
+
+			error = (data) =>
+				console.warn data
+
+			$.ajax
+				type: 'GET'
+				contentType: 'application/json'
+				url: "http://localhost:7777/volunteer/#{id}"
+				success: success
+				error: error
+
+		Spine.bind "edit", (id, field, value) =>
+			console.warn "Editing user  #{id} #{field}:#{value}"
+			success = (data, textStatus, jqXHR) =>
+				console.warn data
+
+			error = (data) =>
+				console.warn data
 		
-		Spine.bind "edit", (field, value) =>
-			console.warn "[COMMUNICATION] Edit #{field}   #{value}"
+			$.ajax
+				type: 'PUT'
+				contentType: 'application/json'
+				url: "http://localhost:7777/volunteer/#{id}/#{field}/#{value}"
+				success: success
+				error: error
+
 
 
 	getVolunteers: () =>

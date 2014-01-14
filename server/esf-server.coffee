@@ -256,6 +256,21 @@ class ESFServer
 			res.status(200).send "adios!"
 
 
+		# PUT /volunteer/:id/:field/:value
+		#
+		# Updates a new volunteer
+		# 
+		# @return 200 OK
+		app.put "/volunteer/:id/:field/:value", (req, res) =>
+			console.warn "PUT /volunteer/#{id}/#{req.params.field}/#{req.params.value}"
+			id  = req.params.id
+			data = {}
+			data[req.params.field] = req.params.value
+			collection = @db.collection('volunteer')
+			collection.update {_id: ObjectID id}, {"$set": data}
+			res.status(200).send "adios!"
+
+
 		# DELETE /volunteer/:id
 		#
 		# Remove the given volunteers in the param 'ids'

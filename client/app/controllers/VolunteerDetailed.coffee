@@ -16,7 +16,6 @@ class VolunteerDetailed extends Spine.Controller
 
 	prueba:() =>
 		if @$('#editdetailedname').hasClass 'editting'
-			console.warn "prueba click..."
 			@doneEditName()
 
 	setVolunteer: (@volunteer) =>
@@ -34,7 +33,7 @@ class VolunteerDetailed extends Spine.Controller
 	doneEditName:() =>
 		@$('#editdetailedname').removeClass('editting')
 		@$('#editdetailedname').attr('readonly', true)
-		Spine.trigger 'edit', 'name', $('#editdetailedname').val()
+		Spine.trigger 'edit',  @volunteer._id,'name', $('#editdetailedname').val()
 		
 
 	doneEditNameHandler: (e) =>
@@ -43,7 +42,6 @@ class VolunteerDetailed extends Spine.Controller
 			@doneEditName()
 
 	editVenue: (e) =>
-		console.warn "editting venue"
 		@$('#formvenue').show()
 		@$('#detailedvenue').hide()
 
@@ -52,6 +50,7 @@ class VolunteerDetailed extends Spine.Controller
 		@$('#detailedvenue').text @$('#selectvenue').val()
 		@$('#formvenue').hide()
 		@$('#detailedvenue').show()
-						
+		Spine.trigger 'edit',  @volunteer._id, 'venue', @$('#selectvenue').val()
+		
 module.exports = VolunteerDetailed
 
