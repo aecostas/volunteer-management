@@ -18,7 +18,7 @@ class Communication extends Spine.Controller
 				success: success
 				error: error
 
-		Spine.bind "edit", (id, field, value) =>
+		Spine.bind "edit", (id, field, value, subfield) =>
 			console.warn "Editing user  #{id} #{field}:#{value}"
 			success = (data, textStatus, jqXHR) =>
 				console.warn data
@@ -29,7 +29,7 @@ class Communication extends Spine.Controller
 			$.ajax
 				type: 'PUT'
 				contentType: 'application/json'
-				url: "http://localhost:7777/volunteer/#{id}/#{field}/#{value}"
+				url: "http://localhost:7777/volunteer/#{id}/#{field}/#{value}/#{subfield}"
 				success: success
 				error: error
 

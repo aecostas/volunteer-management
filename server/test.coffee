@@ -139,10 +139,12 @@ if program.addvolunteers
 		post_data_volunteer.name = "#{names[Math.floor(Math.random() * names.length)]}  #{surnames[Math.floor(Math.random() * surnames.length)]} #{surnames[Math.floor(Math.random() * surnames.length)]}" 
 		post_data_volunteer.venue = sedes[Math.floor(Math.random() * sedes.length)]
 		post_data_volunteer.state = states[Math.floor(Math.random() * states.length)]
+		post_data_volunteer.agreement = JSON.stringify {2010:false, 2011:false, 2012:true, 2013:true, 2014:false}
 		month = Math.floor(Math.random() * 12) + 1
 		day =  Math.floor(Math.random() * 30) + 1
 		year = Math.floor(Math.random() * 12) + 2000
 		post_data_volunteer.date = "#{year}/#{month}/#{day}"
+
 		console.warn post_data_volunteer
 		request.post 'http://localhost:7777/volunteer',
 			{ form: post_data_volunteer },

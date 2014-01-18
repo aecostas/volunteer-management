@@ -10,7 +10,6 @@ express         = require "express"
 util            = require "util"
 http            = require 'http'
 
-
 Db = require('mongodb').Db;
 Connection = require('mongodb').Connection;
 Server = require('mongodb').Server;
@@ -213,6 +212,7 @@ class ESFServer
 		# @return 200 OK
 		app.post "/volunteer", (req, res) =>
 			console.warn "POST /volunteer"
+			console.warn req.body.agreement
 			collection = @db.collection('volunteer')
 			currentyear = new Date().getFullYear()
 			data = {}
@@ -220,8 +220,12 @@ class ESFServer
 			data.date = req.body.date
 			data.venue = req.body.venue
 			data.state = req.body.state
-			data.agreement = {}
-			data.agreement[currentyear] = false
+			data.agreement = JSON.parse req.body.agreement
+
+			console.warn data
+#			data.agreement[currentyear] = false
+
+	
 
 			collection.insert data, (err, docs) =>
 				if err
@@ -261,14 +265,23 @@ class ESFServer
 		# Updates a new volunteer
 		# 
 		# @return 200 OK
-		app.put "/volunteer/:id/:field/:value", (req, res) =>
-			console.warn "PUT /volunteer/#{id}/#{req.params.field}/#{req.params.value}"
+		app.put "/volunteer/:id/:field/:value/:subfield?", (req, res) =>
 			id  = req.params.id
-			data = {}
-			data[req.params.field] = req.params.value
-			collection = @db.collection('volunteer')
-			collection.update {_id: ObjectID id}, {"$set": data}
-			res.status(200).send "adios!"
+			subfield = req.params.subfield
+			
+			console.warn "PUT /volunteer/#{id}/#{req.params.field}/#{req.params.value}/#{req.params.subfield}"
+			collection = @db.collection 'volunteer'
+
+			if req.params.field is "agreement"
+				data = {}
+				data["agreement.#{req.params.subfield}"] = req.params.value
+				collection.update( {_id: ObjectID id} , {$set:data})
+				res.status(200).send ""
+			else
+				data = {}
+				data[req.params.field] = req.params.value
+				collection.update {_id: ObjectID id}, {"$set": data}
+				res.status(200).send "adios!"
 
 
 		# DELETE /volunteer/:id
@@ -303,3 +316,4 @@ module.exports = ESFServer
 # listas de correo en las que está la persona voluntaria
 # añadir etiquetas a las formaciones
 # añadir cargos a los voluntarios
+# función añadir un nuevo año a los arrays de compromisos de voluntariado
